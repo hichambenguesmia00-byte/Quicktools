@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QuickTools — Free Online Tools</title>
+  <meta name="description" content="QuickTools: Fast, free, and privacy-friendly online tools — image compressor, PDF merge/split, QR code generator.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <!-- Google Analytics placeholder: replace GA_MEASUREMENT_ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'GA_MEASUREMENT_ID');
+  </script>
+
+  <!-- External libs (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container row">
+      <div class="brand">
+        <span class="logo">Q</span>
+        <span class="title">QuickTools</span>
+      </div>
+      <nav class="nav">
+        <a href="#tools">Tools</a>
+        <a href="#about">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1>Smart, Free & Simple Online Tools</h1>
+      <p>All processing happens in your browser. No sign-up. No uploads. Privacy-friendly.</p>
+      <a href="#tools" class="btn btn-primary">Start Now</a>
+      <div class="ad ad-hero">Ad Space (Google Ads)</div>
+    </div>
+  </section>
+
+  <section id="tools" class="tools container">
+    <div class="card tool" data-modal="img-compress">
+      <div class="icon">🖼️</div>
+      <h3>Image Compressor</h3>
+      <p>Shrink image size while keeping great quality.</p>
+      <button class="btn btn-ghost open-modal" data-modal="img-compress">Open</button>
+    </div>
+    <div class="card tool" data-modal="pdf-tools">
+      <div class="icon">📄</div>
+      <h3>PDF Merge & Split</h3>
+      <p>Combine PDFs or extract selected pages.</p>
+      <button class="btn btn-ghost open-modal" data-modal="pdf-tools">Open</button>
+    </div>
+    <div class="card tool" data-modal="qr-gen">
+      <div class="icon">🔳</div>
+      <h3>QR Code Generator</h3>
+      <p>Create QR codes for links, text, Wi-Fi, and more.</p>
+      <button class="btn btn-ghost open-modal" data-modal="qr-gen">Open</button>
+    </div>
+  </section>
+
+  <section class="ad ad-inline container">Ad Space (Google Ads)</section>
+
+  <!-- Modals -->
+  <div id="modal-overlay" class="overlay" hidden></div>
+
+  <!-- Image Compressor Modal -->
+  <div class="modal" id="img-compress" hidden>
+    <div class="modal-header">
+      <h3>Image Compressor</h3>
+      <button class="close-modal" data-close="img-compress">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="grid-2">
+        <div>
+          <label class="label">Select Image (max 10MB)</label>
+          <input type="file" id="imgInput" accept="image/*">
+          <label class="label">Quality</label>
+          <input type="range" id="quality" min="40" max="95" value="80">
+          <div class="hint">Tip: 70–85 keeps great quality with smaller size.</div>
+          <button id="compressBtn" class="btn btn-primary">Compress</button>
+        </div>
+        <div>
+          <div class="preview-wrap">
+            <div>
+              <strong>Original:</strong>
+              <div id="origInfo" class="muted small">—</div>
+              <img id="origPreview" alt="" />
+            </div>
+            <div>
+              <strong>Compressed:</strong>
+              <div id="compInfo" class="muted small">—</div>
+              <img id="compPreview" alt="" />
+            </div>
+          </div>
+          <a id="downloadImg" class="btn" download="compressed.jpg" hidden>Download</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PDF Tools Modal -->
+  <div class="modal" id="pdf-tools" hidden>
+    <div class="modal-header">
+      <h3>PDF Merge & Split</h3>
+      <button class="close-modal" data-close="pdf-tools">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="tabs">
+        <button class="tab active" data-tab="merge">Merge</button>
+        <button class="tab" data-tab="split">Split</button>
+      </div>
+
+      <div class="tabpane" data-pane="merge">
+        <label class="label">Select PDF files (max 15MB each, total ≤ 20MB)</label>
+        <input type="file" id="mergeFiles" accept="application/pdf" multiple>
+        <button id="mergeBtn" class="btn btn-primary">Merge PDFs</button>
+        <div id="mergeStatus" class="muted small"></div>
+        <a id="downloadMerged" class="btn" download="merged.pdf" hidden>Download merged.pdf</a>
+      </div>
+
+      <div class="tabpane hidden" data-pane="split">
+        <label class="label">Select a PDF (max 15MB)</label>
+        <input type="file" id="splitFile" accept="application/pdf">
+        <label class="label">Pages (e.g., 1-3,5,8)</label>
+        <input type="text" id="splitPages" placeholder="1-3,5">
+        <button id="splitBtn" class="btn btn-primary">Split PDF</button>
+        <div id="splitStatus" class="muted small"></div>
+        <a id="downloadSplit" class="btn" download="split.pdf" hidden>Download split.pdf</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- QR Generator Modal -->
+  <div class="modal" id="qr-gen" hidden>
+    <div class="modal-header">
+      <h3>QR Code Generator</h3>
+      <button class="close-modal" data-close="qr-gen">✕</button>
+    </div>
+    <div class="modal-body">
+      <label class="label">Text or URL</label>
+      <input type="text" id="qrText" placeholder="https://example.com">
+      <div class="grid-2">
+        <div>
+          <label class="label">Size</label>
+          <input type="range" id="qrSize" min="128" max="512" value="256">
+        </div>
+        <div>
+          <label class="label">Margin</label>
+          <input type="range" id="qrMargin" min="0" max="8" value="2">
+        </div>
+      </div>
+      <button id="qrBtn" class="btn btn-primary">Generate</button>
+      <div class="qr-preview">
+        <canvas id="qrCanvas"></canvas>
+      </div>
+      <a id="qrDownload" class="btn" download="qrcode.png" hidden>Download</a>
+    </div>
+  </div>
+
+  <section id="about" class="about container">
+    <h2>About QuickTools</h2>
+    <p>QuickTools is a free, privacy-first set of utilities. Everything runs in your browser — your files never leave your device.</p>
+  </section>
+
+  <section class="ad ad-footer container">Ad Space (Google Ads)</section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 QuickTools — Free Online Tools</p>
+      <p><a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
+  </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
