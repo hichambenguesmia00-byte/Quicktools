@@ -1,64 +1,123 @@
-:root{
-  --bg:#f7f8fb;
-  --card:#ffffff;
-  --ink:#0f172a;
-  --muted:#64748b;
-  --primary:#6366f1;
-  --primary-2:#8b5cf6;
-  --ring: rgba(99,102,241,0.35);
-}
-*{box-sizing:border-box}
-html,body{height:100%}
-body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--ink)}
-.container{max-width:1100px;margin:0 auto;padding:0 16px}
-.row{display:flex;justify-content:space-between;align-items:center}
-.topbar{position:sticky;top:0;background:rgba(255,255,255,0.8);backdrop-filter:blur(8px);border-bottom:1px solid #eef2ff;z-index:10}
-.topbar .brand{display:flex;align-items:center;gap:10px;padding:12px 0}
-.logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--primary),var(--primary-2));display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
-.title{font-weight:700}
-.nav a{color:var(--muted);text-decoration:none;margin-left:16px}
-.hero{padding:64px 0;text-align:center}
-.hero h1{font-size:40px;margin:0 0 10px}
-.hero p{color:var(--muted);margin:0 0 20px}
-.btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 16px;border-radius:12px;border:1px solid #e5e7eb;background:#fff;color:var(--ink);cursor:pointer;transition:transform .15s ease, box-shadow .15s ease}
-.btn:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(0,0,0,0.06)}
-.btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;border:none}
-.btn-ghost{background:#fff}
-.ad{border:2px dashed #c7d2fe;border-radius:12px;padding:18px;margin:18px auto;text-align:center;color:#6366f1}
-.ad-hero{max-width:620px}
-.ad-inline{min-height:90px}
-.ad-footer{min-height:90px}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Online PDF Converter - QuickTools</title>
+  <meta name="description" content="QuickTools - Free online PDF converter. Convert PDF to Word, Image, or Text, and vice versa instantly. No installation required. Perfect for students and professionals." />
+  <meta name="keywords" content="free pdf converter, pdf to word, word to pdf, pdf to jpg, online converter, quicktools" />
+  <meta name="author" content="QuickTools" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9fafb;
+      color: #222;
+      text-align: center;
+    }
+    header {
+      background: #2563eb;
+      color: #fff;
+      padding: 2rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+    header p {
+      margin: 0.5rem 0 0;
+      font-size: 1.2rem;
+    }
+    main {
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+    }
+    .tool-box {
+      background: #fff;
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 1rem 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .tool-box h2 {
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+    }
+    input[type="file"] {
+      margin: 1rem 0;
+    }
+    button {
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #1e40af;
+    }
+    /* AdSense placeholder */
+    .ads {
+      margin: 2rem 0;
+      background: #e5e7eb;
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      color: #555;
+    }
+    footer {
+      background: #111827;
+      color: #fff;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>QuickTools - Free Online PDF Converter</h1>
+    <p>Convert PDF to Word, Images, or Text instantly.</p>
+  </header>
 
-.tools{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:24px auto}
-@media(max-width:900px){.tools{grid-template-columns:1fr 1fr}}
-@media(max-width:600px){.tools{grid-template-columns:1fr}}
-.card{background:var(--card);border:1px solid #eef2ff;border-radius:16px;padding:18px;box-shadow:0 4px 20px rgba(99,102,241,0.06)}
-.card .icon{font-size:32px}
-.card h3{margin:6px 0}
-.card p{color:var(--muted);margin:0 0 10px}
+  <main>
+    <div class="ads">Google AdSense Space (728x90)</div>
 
-.label{display:block;margin:10px 0 6px;font-weight:600}
-input[type="file"], input[type="text"]{width:100%;padding:10px;border-radius:10px;border:1px solid #e5e7eb}
-input[type="range"]{width:100%}
-.small{font-size:12px}
-.muted{color:var(--muted)}
-.preview-wrap{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.preview-wrap img{max-width:100%;border:1px solid #e5e7eb;border-radius:10px}
+    <div class="tool-box">
+      <h2>Convert PDF to Word</h2>
+      <input type="file" accept="application/pdf">
+      <br>
+      <button>Convert Now</button>
+    </div>
 
-.overlay{position:fixed;inset:0;background:rgba(2,6,23,0.5);z-index:40}
-.modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:16px;z-index:50}
-.modal > .modal-header, .modal > .modal-body{background:var(--card);border:1px solid #eef2ff}
-.modal > .modal-header{border-radius:16px 16px 0 0;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;max-width:900px;width:100%}
-.modal > .modal-body{border-radius:0 0 16px 16px;padding:16px;max-width:900px;width:100%}
-.close-modal{border:none;background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:6px 10px;cursor:pointer}
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-@media(max-width:800px){.grid-2{grid-template-columns:1fr}}
+    <div class="tool-box">
+      <h2>Convert Word to PDF</h2>
+      <input type="file" accept=".doc,.docx">
+      <br>
+      <button>Convert Now</button>
+    </div>
 
-.tabs{display:flex;gap:10px;margin-bottom:12px}
-.tab{padding:8px 12px;border:1px solid #e5e7eb;border-radius:999px;background:#fff;color:var(--ink);cursor:pointer}
-.tab.active{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;border:none}
+    <div class="tool-box">
+      <h2>Convert Image to PDF</h2>
+      <input type="file" accept="image/*">
+      <br>
+      <button>Convert Now</button>
+    </div>
 
-.about{padding:40px 0;text-align:center}
-.footer{padding:20px 0;border-top:1px solid #eef2ff;text-align:center;color:var(--muted)}
-.hidden{display:none}
-.hint{color:var(--muted);font-size:12px;margin-top:6px}
+    <div class="ads">Google AdSense Space (300x250)</div>
+  </main>
+
+  <footer>
+    <p>© 2025 QuickTools | Free Online Converters</p>
+  </footer>
+</body>
+</html>
