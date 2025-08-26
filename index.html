@@ -1,96 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>QuickTools</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuickTools - Free PDF Tools</title>
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f9fafc;
+      font-family: "Segoe UI", sans-serif;
+      background: #f5f6fa;
       color: #333;
     }
     header {
-      background: #4f46e5;
+      background: #2d89ef;
       color: white;
       padding: 20px;
       text-align: center;
-      font-size: 24px;
+      font-size: 1.8rem;
       font-weight: bold;
     }
-    main {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-      gap: 20px;
-      padding: 30px;
-    }
-    .tool-card {
-      background: white;
-      border-radius: 16px;
+    .container {
+      max-width: 1000px;
+      margin: auto;
       padding: 20px;
+    }
+    .tools {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .tool {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
       text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: transform 0.2s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      transition: transform 0.2s;
     }
-    .tool-card:hover {
-      transform: scale(1.05);
+    .tool:hover {
+      transform: translateY(-4px);
     }
-    .tool-card h3 {
+    .tool h3 {
       margin-bottom: 10px;
-      font-size: 18px;
-      color: #4f46e5;
+      color: #2d89ef;
     }
-    .tool-card button {
-      padding: 10px 20px;
+    input[type="file"], textarea {
+      margin: 10px 0;
+    }
+    button {
+      background: #2d89ef;
       border: none;
-      border-radius: 8px;
-      background: #4f46e5;
       color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: background 0.3s;
+      font-size: 1rem;
     }
-    .tool-card button:hover {
-      background: #3730a3;
+    button:hover {
+      background: #1e5cb3;
+    }
+    .ads {
+      background: #eee;
+      border: 2px dashed #aaa;
+      text-align: center;
+      padding: 40px;
+      margin: 30px 0;
+      font-size: 1.2rem;
+      color: #555;
+      border-radius: 12px;
     }
     footer {
-      text-align: center;
+      background: #2d89ef;
+      color: white;
       padding: 15px;
-      background: #f1f1f1;
-      margin-top: 30px;
-      font-size: 14px;
+      text-align: center;
+      margin-top: 40px;
     }
   </style>
 </head>
 <body>
-  <header>
-    🚀 QuickTools
-  </header>
+  <header>🚀 QuickTools - Free PDF Tools</header>
 
-  <main>
-    <div class="tool-card">
-      <h3>Image Compressor</h3>
-      <button>Open</button>
+  <div class="container">
+
+    <!-- مكان للإعلانات -->
+    <div class="ads">Ad Space (Google AdSense)</div>
+
+    <div class="tools">
+      <!-- PDF to Image -->
+      <div class="tool">
+        <h3>📄 PDF → Image</h3>
+        <input type="file" id="pdfToImg" accept="application/pdf">
+        <button onclick="pdfToImage()">Convert</button>
+        <div id="pdfResult"></div>
+      </div>
+
+      <!-- Image to PDF -->
+      <div class="tool">
+        <h3>🖼️ Image → PDF</h3>
+        <input type="file" id="imgToPdf" accept="image/*" multiple>
+        <button onclick="imageToPDF()">Convert</button>
+        <div id="imgResult"></div>
+      </div>
+
+      <!-- Text to PDF -->
+      <div class="tool">
+        <h3>✍️ Text → PDF</h3>
+        <textarea id="textInput" rows="5" placeholder="Write something..."></textarea><br>
+        <button onclick="textToPDF()">Convert</button>
+        <div id="textResult"></div>
+      </div>
     </div>
 
-    <div class="tool-card">
-      <h3>PDF Merger</h3>
-      <button>Open</button>
-    </div>
+    <!-- مكان ثاني للإعلانات -->
+    <div class="ads">Ad Space (Google AdSense)</div>
 
-    <div class="tool-card">
-      <h3>Text Formatter</h3>
-      <button>Open</button>
-    </div>
+  </div>
 
-    <div class="tool-card">
-      <h3>Color Picker</h3>
-      <button>Open</button>
-    </div>
-  </main>
+  <footer>© 2025 QuickTools - Free PDF Tools</footer>
 
-  <footer>
-    © 2025 QuickTools. All rights reserved.
-  </footer>
+  <!-- مكتبات js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script>
+    // PDF → Image (بسيط: عرض صفحات كصور)
+    async function pdfToImage() {
+      const file = document.getElementById("pdfToImg").files[0];
+      if (!file) return alert("Please upload a PDF");
+      const url = URL.createObjectURL(file);
+      document.getElementById("pdfResult").innerHTML = 
+        `<p>Preview only. For full conversion use advanced tools.</p><iframe src="${url}" width="100%" height="400"></iframe>`;
+    }
+
+    // Image → PDF
+    async function imageToPDF() {
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF();
+      const files = document.getElementById("imgToPdf").files;
+      if (!files.length) return alert("Upload images first!");
+      for (let i = 0; i < files.length; i++) {
+        const imgData = await readFileAsDataURL(files[i]);
+        pdf.addImage(imgData, "JPEG", 10, 10, 180, 160);
+        if (i < files.length - 1) pdf.addPage();
+      }
+      pdf.save("converted.pdf");
+    }
+
+    // Text → PDF
+    function textToPDF() {
+      const { jsPDF } = window.jspdf;
+      const text = document.getElementById("textInput").value;
+      if (!text) return alert("Write something!");
+      const pdf = new jsPDF();
+      pdf.text(text, 10, 20);
+      pdf.save("text.pdf");
+    }
+
+    function readFileAsDataURL(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+  </script>
 </body>
 </html>
