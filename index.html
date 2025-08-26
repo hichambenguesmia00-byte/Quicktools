@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QuickTools - Free PDF to Word Converter</title>
-<meta name="description" content="QuickTools - Convert your PDF files to Word easily and quickly. Free online tool.">
+<title>QuickTools - PDF to Word Converter</title>
+<meta name="description" content="QuickTools - Convert PDF files to Word easily and quickly. Free online tool.">
 <meta name="keywords" content="PDF, Word, convert, QuickTools, free, online">
 <meta property="og:title" content="QuickTools - PDF to Word">
 <meta property="og:description" content="Convert your PDF files to Word easily with QuickTools.">
@@ -55,9 +55,7 @@ h3 {display:flex; align-items:center; gap:10px;}
   <img src="https://via.placeholder.com/1000x120?text=Bottom+Ad" class="ad-img" alt="Bottom Ad">
 </div>
 
-<script type="module">
-import { Document, Packer, Paragraph } from "https://cdn.skypack.dev/docx";
-
+<script>
 async function convertPdfToWord() {
   const input = document.getElementById('pdfInput');
   const status = document.getElementById('status');
@@ -66,27 +64,26 @@ async function convertPdfToWord() {
   status.innerText = 'Processing...';
 
   const file = input.files[0];
-  const arrayBuffer = await file.arrayBuffer();
+  const formData = new FormData();
+  formData.append('file', file);
 
-  // PDF text extraction workaround
-  let text = "PDF text extraction in browser is limited.\nUse a proper PDF parsing library for better results.";
-  
-  // إنشاء DOCX
-  const doc = new Document({
-    sections: [{
-      properties: {},
-      children: [new Paragraph(text)]
-    }]
-  });
-
-  const blob = await Packer.toBlob(doc);
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = file.name.replace('.pdf','.docx');
-  a.click();
-
-  status.innerText = 'Conversion completed!';
+  try {
+    const response = await fetch('https://quicktools-ren-1.onrender.com/upload', {
+      method: 'POST',
+      body: formData
+    });
+    if(!response.ok) throw new Error('Conversion failed');
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = file.name.replace('.pdf','.docx');
+    a.click();
+    status.innerText = 'Conversion completed!';
+  } catch (err) {
+    console.error(err);
+    status.innerText = 'Conversion failed. Please try again.';
+  }
 }
 </script>
 </body>
